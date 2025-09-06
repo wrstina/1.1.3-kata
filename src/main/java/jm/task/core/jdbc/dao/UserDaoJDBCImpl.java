@@ -43,12 +43,12 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
     @Override
-    public void saveUser(String name, String lastname, byte age) {
+    public void saveUser(String name, String last_name, byte age) {
         String sql = "INSERT INTO users (name, last_name, age) VALUES (?, ?, ?)";
 
         try (PreparedStatement statement = con.prepareStatement(sql)) {
             statement.setString(1, name);
-            statement.setString(2, lastname);
+            statement.setString(2, last_name);
             statement.setByte(3, age);
             statement.executeUpdate();
             logger("User with name " + name + " saved");
@@ -85,7 +85,7 @@ public class UserDaoJDBCImpl implements UserDao {
         List<User> users = new ArrayList<>();
 
         try (Statement stmt = con.createStatement();
-             ResultSet resultSet = stmt.executeQuery("SELECT FROM users")) {
+             ResultSet resultSet = stmt.executeQuery("SELECT id, name, last_name, age FROM users")) {
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getLong("id"));

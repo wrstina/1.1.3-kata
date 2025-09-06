@@ -5,14 +5,16 @@ import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
 import java.util.List;
-
+import java.util.logging.Logger;
 
 public class Main {
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) {
+
         UserService userService = new UserServiceImpl();
 
         userService.createUsersTable();
-        System.out.println("Users table has been created");
+        logger.info("Users table has been created");
 
         userService.saveUser ("Punya", "Kushat", (byte) 5);
         userService.saveUser ("Puny", "Kusha", (byte) 4);
@@ -20,19 +22,19 @@ public class Main {
         userService.saveUser ("Pu", "Kus", (byte) 2);
 
         List<User> users = userService.getAllUsers();
-        System.out.println("All users");
+        logger.info("All users");
 
         if (users != null) {
         for (User user : users)
-            System.out.println(user);
+            logger.info(user.toString());
         } else {
-            System.out.println("Users table is empty");
+            logger.info("Users table is empty");
         }
         userService.cleanUsersTable();
-        System.out.println("Users table has been cleaned");
+        logger.info("Users table has been cleaned");
 
         userService.dropUsersTable();
-        System.out.println("Users table has been cleaned");
+        logger.info("Users table has been cleaned");
         // реализуйте алгоритм здесь
     }
 }
